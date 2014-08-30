@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Root Inspector</string>
+    <string name="action_settings">Settings</string>
+    <string name="failure_string">Failed.</string>
+    <string name="pass_string">Passed. Not detected.</string>
+
+    <string-array name="menu_array">
+        <item>Inspect Using Java</item>
+        <item>Inspect Using Native Code</item>
+    </string-array>
+    <string-array name="java_detection_titles">
+        <item>BuildTag</item>
+        <item>Superuser APK</item>
+        <item>which su</item>
+        <item>"su" binary</item>
+        <item>"su" binary</item>
+        <item>Installed Applications</item>
+        <item>Running App Processes</item>
+        <item>daemonsu</item>
+        <item>"su" binary</item>
+        <item>"su" binary</item>
+        <item>Running Services</item>
+        <item>Running Tasks</item>
+        <item>ProcessBuilder</item>
+        <item>ProcessBuilder</item>
+        <item>ProcessBuilder</item>
+    </string-array>
+    <string-array name="java_detection_types_array">
+        <item>Check for "test-keys" in buildTag</item>
+        <item>Check for /system/app/superuser.apk</item>
+        <item>Check by running /system/xbin/which su</item>
+        <item>Check for /system/xbin/su</item>
+        <item>Check for /system/bin/su</item>
+        <item>Check for "supersu" and "superuser" in getInstalledApplications</item>
+        <item>Check for "supersu" and "superuser" in getRunningAppProcesses</item>
+        <item>Check by running "ps" and looking for \"daemonsu\"</item>
+        <item>Check by running "su" directly</item>
+        <item>Check by running "ps" and looking for \"su\"</item>
+        <item>Check for "supersu" and "superuser" in getRunningServices</item>
+        <item>Check for "supersu" and "superuser" in getRunningTasks</item>
+        <item>Check by running "su" directly</item>
+        <item>Check for daemonsu in /system/xbin/ using ls -l</item>
+        <item>Check for daemonsu in /system/xbin/ using ls -l</item>
+    </string-array>
+    <string-array name="java_detection_failures_array">
+        <item>Found "test-keys" in buildTag.</item>
+        <item>Found /system/app/superuser.apk.</item>
+        <item>Able to run "/system/xbin/which su".</item>
+        <item>Found "/system/xbin/su".</item>
+        <item>"/system/bin/su"</item>
+        <item>Found "supersu"/"superuser" in Installed Apps.</item>
+        <item>Found "supersu"/"superuser" in Running App Processes.</item>
+        <item>Found "daemonsu" when running "ps" command.</item>
+        <item>Able to run "su".</item>
+        <item>Found "su" when running "ps" command.</item>
+        <item>Found "supersu"/"superuser" in running services.</item>
+        <item>Found "supersu"/"superuser" in running tasks.</item>
+        <item>Able to run "su".</item>
+        <item>Found daemonsu</item>
+        <item>Found daemonsu</item>
+    </string-array>
+    <string-array name="native_detection_titles">
+        <item>"su" binary</item>
+        <item>"su" binary</item>
+        <item>"daemonsu" binary</item>
+        <item>"su" binary</item>
+        <item>"su" binary</item>
+        <item>"daemonsu" binary</item>
+        <item>Superuser.apk</item>
+        <item>eu.chainfire.supersu</item>
+        <item>com.noshufou.android.su</item>
+        <item>eu.chainfire.supersu</item>
+        <item>com.noshufou.android.su</item>
+        <item>rootkeeper or hidemyroot</item>
+        <item>"su" binary</item>
+    </string-array>
+    <string-array name="native_detection_types_array">
+        <item>Check for /system/xbin/su using fopen in native library</item>
+        <item>Check by running "su" directly with execl</item>
+        <item>Check by running stat on "daemonsu"</item>
+        <item>Check for /system/xbin/su by using ls</item>
+        <item>Check for /system/bin/su by using ls</item>
+        <item>Check for /system/xbin/daemonsu by using ls</item>
+        <item>Check for /system/app/Superuser.apk using ls</item>
+        <item>Check for /data/app/eu.chainfire.supersu* using ls.</item>
+        <item>Check for /data/app/com.noshufou.android.su* using ls.</item>
+        <item>Check for eu.chainfire.supersu using pm list packages (PackageManager).</item>
+        <item>Check for com.noshufou.android.su using pm list packages (PackageManager).</item>
+        <item>Check for rootkeeper and hidemyroot using pm list packages (PackageManager).</item>
+        <item>Check for /system/xbin/su using ifstream in native library</item>
+    </string-array>
+    <string-array name="native_detection_failures_array">
+        <item>Found "/system/xbin/su".</item>
+        <item>Able to run "su".</item>
+        <item>Found stat info for daemonsu.</item>
+        <item>Found su in directory listing.</item>
+        <item>Found su in directory listing.</item>
+        <item>Found daemonsu in directory listing.</item>
+        <item>Found Superuser.apk in directory listing.</item>
+        <item>Found APK containing the name eu.chainfire.supersu in directory listing.</item>
+        <item>Found APK containing the name com.noshufou.android.su in directory listing.</item>
+        <item>Found package with the name eu.chainfire.supersu using pm list packages.</item>
+        <item>Found package with the name com.noshufou.android.su using pm list packages.</item>
+        <item>Found package with name rootkeeper or hidemyroot using pm list packages.</item>
+        <item>Found "/system/xbin/su".</item>
+    </string-array>
+
+    <string name="title_activity_inspect_using_java">Inspect Using Java</string>
+    <string name="title_activity_inspect_using_native">Inspect Using Native</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
