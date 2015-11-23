@@ -80,39 +80,48 @@ extern "C" {
 
 	JNIEXPORT jboolean JNICALL Java_com_devadvance_rootinspector_Root_runsu(JNIEnv * env, jobject obj, jstring command)
 	{
+		__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: runsu: starting...\n");
 		jboolean run_su_success = 1;
 		jboolean isCopy;
 		const char * path = env->GetStringUTFChars(command, &isCopy);
-		int status;
-		if(fork() == 0){
+		int status = 1;
+		pid_t pid = -1;
+		pid = fork();
+		__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: runsu: pid is: [%d]\n", pid);
+
+		if(pid == 0) {
 			// Child process will return 0 from fork()
 			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Child process here.");
 			int result = execl("/system/xbin/su", "su", NULL);
 			int errsv = errno;
 			if (result != 0) {
 				char buffer[256];
-				char * errorMessage = strerror_r( errsv, buffer, 256 ); // get string message from errno
-				__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: execl error: [%s]", errorMessage);
+				char * errorMessage = (char *)strerror_r( errsv, buffer, 256 ); // get string message from errno
+				__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: execl error: [%s]\n", errorMessage);
 				exit(1);
 			} else {
-				__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: execl no error");
+				__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: execl no error\n");
 				exit(0);
 			}
-		}else{
+		} else if (pid > 0){
 			// Parent process will return a non-zero value from fork()
-			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Parent process here.");
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Parent process here.\n");
 			wait(&status);
-			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Parent done waiting.");
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Parent done waiting.\n");
+		} else {
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: runsu: error with fork()\n");
+			status = 1;
 		}
 
-		__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: status: [%d]", status);
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: status: [%d]\n", status);
 		if (status) {
 			run_su_success = 0;
-			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Error in running command.");
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Error in running command.\n");
 		} else {
-			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Success in running command.");
+			__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: Success in running command.\n");
 		}
 
+		__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, "NATIVE: runsu: finishing...\n");
 		return run_su_success;
 	}
 
